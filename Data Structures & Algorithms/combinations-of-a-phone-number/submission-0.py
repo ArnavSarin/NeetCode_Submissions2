@@ -1,0 +1,32 @@
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        keyboard = {
+            "2": {"a","b","c"},
+            "3": {"d","e","f"},
+            "4": {"g","h","i"},
+            "5": {"j","k","l"},
+            "6": {"m","n","o"},
+            "7": {"p","q","r","s"},
+            "8": {"t","u","v"},
+            "9": {"w","x","y","z"},
+        }
+
+        ans = []
+
+        if digits == "":
+            return ans
+
+        def backtrack(current,idx):
+            nonlocal ans
+
+            if len(current)==len(digits):
+                ans.append(current)
+                return
+
+            for i in keyboard[digits[idx]]:
+                current = current + i
+                backtrack(current,idx+1)
+                current = current[:-1]
+
+        backtrack("",0)
+        return ans
